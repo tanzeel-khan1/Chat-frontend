@@ -30,7 +30,7 @@ const Signup = () => {
     };
 
     try {
-      await Axios.post("/api/signup", userInfo);
+      await Axios.post("https://my-app1111.bonto.run/api/signup", userInfo);
       toast.success("Signup successful! Please login.");
       navigate("/login");
     } catch (error) {
