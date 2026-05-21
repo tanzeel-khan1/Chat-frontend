@@ -1,38 +1,69 @@
+// import { useEffect, useState } from "react";
+// import cookies from "js-cookie";
+// import axios from "axios";
+
+// const GetAllUsers = () => {
+//   const [allUsers, setAllUsers] = useState([]);
+//   const [loading, setLoading] = useState(true);
+
+//   useEffect(() => {
+//     const getUsers = async () => {
+//       try {
+//         const token = cookies.get("jwt");
+
+//         const response = await axios.get(
+//           "https://my-app1111.bonto.run/api/get-all-users",
+//           {
+//             withCredentials: true,
+//             headers: {
+//               Authorization: `Bearer ${token}`,
+//             },
+//           }
+//         );
+
+//         setAllUsers(response.data);
+//       } catch (error) {
+//         console.log("Error in GetAllUsers:", error);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     getUsers();
+//   }, []);
+
+//   return [allUsers, loading];
+// };
+
+// export default GetAllUsers;
 import { useEffect, useState } from "react";
-import cookies from "js-cookie";
 import axios from "axios";
 
 const GetAllUsers = () => {
-  const [allUsers, setAllUsers] = useState([]);
+  const [allUser, setAllUser] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const getUsers = async () => {
+    const fetchUsers = async () => {
       try {
-        const token = cookies.get("jwt");
-
-        const response = await axios.get(
-          "https://my-app1111.bonto.run/api/get-all-users",
-          {
-            withCredentials: true,
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
+        const res = await axios.get(
+          "https://my-app1111.bonto.run/api/get-all-users"
         );
 
-        setAllUsers(response.data);
+        console.log(res.data);
+
+        setAllUser(res.data.users); // ✅ IMPORTANT FIX
       } catch (error) {
-        console.log("Error in GetAllUsers:", error);
+        console.log(error);
       } finally {
         setLoading(false);
       }
     };
 
-    getUsers();
+    fetchUsers();
   }, []);
 
-  return [allUsers, loading];
+  return [allUser, loading];
 };
 
 export default GetAllUsers;

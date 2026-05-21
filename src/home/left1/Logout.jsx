@@ -14,7 +14,7 @@ const Logout = () => {
   const handleLogout = async () => {
     setLoading(true);
     try {
-      await axios.post("/api/logout", {}, { withCredentials: true });
+      await axios.post("https://my-app1111.bonto.run/api/logout", {}, { withCredentials: true });
 
       localStorage.removeItem("userInfo");
       Cookies.remove("jwt");
