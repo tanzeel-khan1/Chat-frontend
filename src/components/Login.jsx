@@ -19,7 +19,7 @@ const Login = () => {
       password: data.password,
     };
 
-    Axios.post("/api/login", userInfo)
+    Axios.post("https://my-app1111.bonto.run/api/login", userInfo)
       .then((response) => {
         toast.success("Login successful!");
         localStorage.setItem("userInfo", JSON.stringify(response.data));
