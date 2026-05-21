@@ -12,7 +12,7 @@ const GetAllUsers = () => {
         const token = cookies.get("jwt");
 
         const response = await axios.get(
-          "https://my-app1111.bonto.run/api/all",
+          "https://my-app1111.bonto.run/api/get-all-users",
           {
             withCredentials: true,
             headers: {
