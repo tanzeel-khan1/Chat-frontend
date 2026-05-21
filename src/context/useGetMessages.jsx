@@ -21,7 +21,7 @@ const useGetMessages = () => {
       setLoading(true);
       try {
         const response = await axios.get(
-          `/api/messages/get/${selectedConversation._id}`
+          `https://my-app1111.bonto.run/api/messages/get/${selectedConversation._id}`
         );
 
         // ✅ API must return array

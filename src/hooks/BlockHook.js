@@ -29,7 +29,7 @@ const useBlockUser = (targetId) => {
   setError(null);
 
   try {
-    const response = await axios.put(`/api/messages/block/${targetId}`);
+    const response = await axios.put(`https://my-app1111.bonto.run/api/messages/block/${targetId}`);
     await fetchStatus(); // 🔥 refresh status immediately
     return response.data;
   } catch (err) {

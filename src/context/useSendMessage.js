@@ -12,7 +12,7 @@ const useSendMessage = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        `/api/messages/send/${selectedConversation._id}`,
+        `https://my-app1111.bonto.run/api/messages/send/${selectedConversation._id}`,
         { message }
       );
 

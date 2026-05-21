@@ -10,7 +10,7 @@ const useDeleteMessage = () => {
     setError(null);
 
     try {
-      const response = await axios.delete(`/api/messages/${messageId}`);
+      const response = await axios.delete(`https://my-app1111.bonto.run/api/messages/${messageId}`);
       setLoading(false);
       return response.data;
     } catch (err) {

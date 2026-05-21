@@ -21,7 +21,7 @@ export const SocketProvider = ({ children }) => {
 
     const userId = typeof rawId === "string" ? rawId : String(rawId);
 
-    const newSocket = io("http://localhost:5002", {
+    const newSocket = io("https://my-app1111.bonto.run", {
       query: { userId },
     });
 
