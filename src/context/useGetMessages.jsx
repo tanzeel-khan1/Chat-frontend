@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import useConversation from "../stateman/useConversation";
-import axios from "axios";
+import api from "../lib/api";
 
 const useGetMessages = () => {
   const [loading, setLoading] = useState(false);
@@ -20,8 +20,8 @@ const useGetMessages = () => {
 
       setLoading(true);
       try {
-        const response = await axios.get(
-          `https://my-app1111.bonto.run/api/messages/get/${selectedConversation._id}`
+        const response = await api.get(
+          `/api/messages/get/${selectedConversation._id}`
         );
 
         // ✅ API must return array

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { RiLogoutBoxLine } from "react-icons/ri";
-import axios from "axios";
+import api from "../../lib/api";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import { useAuth } from "../../context/AuthProvider";
@@ -14,7 +14,7 @@ const Logout = () => {
   const handleLogout = async () => {
     setLoading(true);
     try {
-      await axios.post("https://my-app1111.bonto.run/api/logout", {}, { withCredentials: true });
+      await api.post("/api/logout");
 
       localStorage.removeItem("userInfo");
       Cookies.remove("jwt");

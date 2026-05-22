@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import api from "../lib/api";
 
 const useDeleteMessage = () => {
   const [loading, setLoading] = useState(false);
@@ -10,7 +10,7 @@ const useDeleteMessage = () => {
     setError(null);
 
     try {
-      const response = await axios.delete(`https://my-app1111.bonto.run/api/messages/${messageId}`);
+      const response = await api.delete(`/api/messages/${messageId}`);
       setLoading(false);
       return response.data;
     } catch (err) {

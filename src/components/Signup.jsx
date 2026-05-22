@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import Axios from "axios";
+import api from "../lib/api";
 import { useAuth } from "../context/AuthProvider";
 import toast from "react-hot-toast";
 
@@ -30,7 +30,7 @@ const Signup = () => {
     };
 
     try {
-      await Axios.post("https://my-app1111.bonto.run/api/signup", userInfo);
+      await api.post("/api/signup", userInfo);
       toast.success("Signup successful! Please login.");
       navigate("/login");
     } catch (error) {

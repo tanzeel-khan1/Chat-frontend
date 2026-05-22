@@ -1,6 +1,6 @@
 import { useState } from "react";
 import useConversation from "../stateman/useConversation.js";
-import axios from "axios";
+import api from "../lib/api";
 
 const useSendMessage = () => {
   const [loading, setLoading] = useState(false);
@@ -11,8 +11,8 @@ const useSendMessage = () => {
 
     setLoading(true);
     try {
-      const response = await axios.post(
-        `https://my-app1111.bonto.run/api/messages/send/${selectedConversation._id}`,
+      const response = await api.post(
+        `/api/messages/send/${selectedConversation._id}`,
         { message }
       );
 

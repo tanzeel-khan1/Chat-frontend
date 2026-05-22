@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import Axios from "axios";
+import api from "../lib/api";
 import { useAuth } from "../context/AuthProvider";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -19,7 +19,7 @@ const Login = () => {
       password: data.password,
     };
 
-    Axios.post("https://my-app1111.bonto.run/api/login", userInfo)
+    api.post("/api/login", userInfo)
       .then((response) => {
         toast.success("Login successful!");
         localStorage.setItem("userInfo", JSON.stringify(response.data));

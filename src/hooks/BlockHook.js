@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../lib/api";
 
 const useBlockUser = (targetId) => {
   const [loading, setLoading] = useState(false);
@@ -13,7 +13,7 @@ const useBlockUser = (targetId) => {
     setError(null);
 
     try {
-      const response = await axios.get(`/api/messages/status/${targetId}`);
+      const response = await api.get(`/api/messages/status/${targetId}`);
       setStatus(response.data.status);
     } catch (err) {
       setError(err.response?.data?.message || "Failed to get status");
@@ -23,42 +23,41 @@ const useBlockUser = (targetId) => {
   };
 
   const blockUser = async () => {
-  if (!targetId) return;
+    if (!targetId) return;
 
-  setLoading(true);
-  setError(null);
+    setLoading(true);
+    setError(null);
 
-  try {
-    const response = await axios.put(`https://my-app1111.bonto.run/api/messages/block/${targetId}`);
-    await fetchStatus(); // 🔥 refresh status immediately
-    return response.data;
-  } catch (err) {
-    setError(err.response?.data?.message || "Something went wrong");
-    return null;
-  } finally {
-    setLoading(false);
-  }
-};
+    try {
+      const response = await api.put(`/api/messages/block/${targetId}`);
+      await fetchStatus();
+      return response.data;
+    } catch (err) {
+      setError(err.response?.data?.message || "Something went wrong");
+      return null;
+    } finally {
+      setLoading(false);
+    }
+  };
 
-const unblockUser = async () => {
-  if (!targetId) return;
+  const unblockUser = async () => {
+    if (!targetId) return;
 
-  setLoading(true);
-  setError(null);
+    setLoading(true);
+    setError(null);
 
-  try {
-    const response = await axios.put(`/api/messages/unblock/${targetId}`);
-    await fetchStatus(); // 🔥 refresh status immediately
-    return response.data;
-  } catch (err) {
-    setError(err.response?.data?.message || "Something went wrong");
-    return null;
-  } finally {
-    setLoading(false);
-  }
-};
+    try {
+      const response = await api.put(`/api/messages/unblock/${targetId}`);
+      await fetchStatus();
+      return response.data;
+    } catch (err) {
+      setError(err.response?.data?.message || "Something went wrong");
+      return null;
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  // 🔄 Auto fetch status when targetId changes
   useEffect(() => {
     fetchStatus();
   }, [targetId]);

@@ -37,7 +37,7 @@
 
 // export default GetAllUsers;
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../lib/api";
 
 const GetAllUsers = () => {
   const [allUser, setAllUser] = useState([]);
@@ -46,9 +46,7 @@ const GetAllUsers = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await axios.get(
-          "https://my-app1111.bonto.run/api/get-all-users"
-        );
+        const res = await api.get("/api/get-all-users");
 
         console.log(res.data);
 
