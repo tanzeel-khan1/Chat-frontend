@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useAuth } from "./AuthProvider.jsx";
 import io from "socket.io-client";
+import { API_BASE_URL } from "../lib/api";
 
 export const SocketContext = createContext();
 export const useSocketContext = () => useContext(SocketContext);
@@ -21,8 +22,12 @@ export const SocketProvider = ({ children }) => {
 
     const userId = typeof rawId === "string" ? rawId : String(rawId);
 
-    const newSocket = io("https://my-app1111.bonto.run", {
+    const newSocket = io(API_BASE_URL, {
       query: { userId },
+      withCredentials: true,
+      transports: ["websocket", "polling"],
+      reconnection: true,
+      reconnectionAttempts: 10,
     });
 
     setSocket(newSocket);

@@ -9,20 +9,20 @@ const useSendMessage = () => {
   const sendMessages = async (message) => {
     if (!message || !selectedConversation?._id) return;
 
+    const trimmed = message.trim();
+    if (!trimmed) return;
+
     setLoading(true);
     try {
       const response = await api.post(
         `/api/messages/send/${selectedConversation._id}`,
-        { message }
+        { message: trimmed }
       );
 
-      // ✅ Add new message to existing messages
-      if (response.data?.data) {
-        addMessage(response.data.data);
-      } else if (response.data) {
-        addMessage(response.data);
+      const savedMessage = response.data?.data;
+      if (savedMessage) {
+        addMessage(savedMessage);
       }
-
     } catch (error) {
       console.log("Error sending message:", error);
     } finally {
