@@ -26,6 +26,7 @@
 import React from "react";
 import Users from "../Users";
 import GetAllUsers from "../../context/GetAllUsers";
+import Loading from "../../components/Loading";
 
 const User = ({ setShowSidebar }) => {
   const [allUser, loading] = GetAllUsers();
@@ -38,7 +39,7 @@ const User = ({ setShowSidebar }) => {
       className="flex-1 overflow-y-auto"
     >
       {loading ? (
-        <p className="text-center">Loading...</p>
+        <Loading label="Loading chats..." />
       ) : (
         Array.isArray(allUser) &&
         allUser.map((user, index) => (

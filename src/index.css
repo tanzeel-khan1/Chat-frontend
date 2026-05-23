@@ -12,6 +12,42 @@ body,
   display: none;
 }
 
+.loading-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 100%
+  );
+  animation: loading-shimmer 1.4s ease-in-out infinite;
+}
+
+.loading-dot {
+  animation: loading-bounce-dot 1s ease-in-out infinite;
+}
+
+@keyframes loading-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes loading-bounce-dot {
+  0%,
+  80%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  40% {
+    transform: translateY(-6px);
+    opacity: 1;
+  }
+}
+
 
 .bg-gradient {
     --tw-gradient-position: to bottom in oklab;
