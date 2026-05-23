@@ -14,16 +14,17 @@ export default function Right({ setShowSidebar }) {
   }, []);
 
   return (
-    <div className="w-full md:w-[70%] h-screen flex flex-col bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white overflow-hidden">
+    <div className="w-full md:w-[70%] h-full min-h-0 flex flex-col bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white overflow-hidden">
       {!selectedConversation ? (
         <NoChat setShowSidebar={setShowSidebar} />
       ) : (
         <>
           <Chatuser setShowSidebar={setShowSidebar} />
 
-          <div className="flex-1 overflow-y-auto">
+          <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain">
             <Message />
           </div>
+
           <Type targetId={selectedConversation?._id} />
         </>
       )}
@@ -35,10 +36,10 @@ const NoChat = ({ setShowSidebar }) => {
   const { authUser } = useAuth();
 
   return (
-    <div className="flex-1 flex flex-col items-center justify-center p-4">
-      {/* Mobile Menu Button */}
+    <div className="flex-1 flex flex-col items-center justify-center p-4 min-h-0">
       <div className="md:hidden w-full flex justify-start mb-4">
         <button
+          type="button"
           onClick={() => setShowSidebar(true)}
           className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
         >

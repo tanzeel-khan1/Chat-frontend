@@ -5,7 +5,7 @@ import NotificationBanner from "../../components/NotificationBanner";
 
 const Left = ({ setShowSidebar }) => {
   return (
-    <div className="w-full md:w-[30%] bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 text-white h-screen flex flex-col overflow-hidden border-r border-slate-700">
+    <div className="w-full md:w-[30%] h-full min-h-0 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 text-white flex flex-col overflow-hidden border-r border-slate-700">
       {/* Mobile Header with Menu Toggle */}
       <div className="flex items-center justify-between p-4 md:hidden border-b border-slate-700 bg-slate-800/50">
         <h1 className="font-bold text-2xl bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Chat's</h1>

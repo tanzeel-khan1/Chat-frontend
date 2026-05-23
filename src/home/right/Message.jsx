@@ -5,7 +5,7 @@ import Loading from "../../components/Loading";
 import useConversation from "../../stateman/useConversation";
 
 const Message = () => {
-  const { messages = [] } = useConversation(); 
+  const { messages = [] } = useConversation();
   const { loading } = useGetMessages();
 
   const lastMessageRef = useRef(null);
@@ -17,32 +17,25 @@ const Message = () => {
   }, [messages]);
 
   if (loading) {
-    return <Loading />;
+    return (
+      <div className="flex items-center justify-center py-12">
+        <Loading />
+      </div>
+    );
   }
 
   if (!loading && messages.length === 0) {
     return (
-      <div
-        className="min-h-[80vh] flex items-center justify-center p-4 bg-transparent"
-        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-      >
-        <p className="opacity-60 text-slate-400 text-sm md:text-base">No messages yet</p>
-        <style>
-          {`
-            div::-webkit-scrollbar {
-              display: none;
-            }
-          `}
-        </style>
+      <div className="flex items-center justify-center py-16 px-4">
+        <p className="opacity-60 text-slate-400 text-sm md:text-base">
+          No messages yet
+        </p>
       </div>
     );
   }
 
   return (
-    <div
-      className="flex flex-col bg-transparent min-h-[80vh] p-2 md:p-4"
-      style={{ overflowY: "auto", scrollbarWidth: "none", msOverflowStyle: "none" }}
-    >
+    <div className="flex flex-col gap-1 p-2 md:p-4 pb-4">
       {messages.map((message, index) => (
         <div
           key={message._id || index}
@@ -51,13 +44,6 @@ const Message = () => {
           <Messages message={message} />
         </div>
       ))}
-      <style>
-        {`
-          div::-webkit-scrollbar {
-            display: none;
-          }
-        `}
-      </style>
     </div>
   );
 };

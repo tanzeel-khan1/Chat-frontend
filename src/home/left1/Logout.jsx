@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import { useAuth } from "../../context/AuthProvider";
 import { useNavigate } from "react-router-dom";
 
-const Logout = () => {
+export const useLogout = () => {
   const [loading, setLoading] = useState(false);
   const { setAuthUser } = useAuth();
   const navigate = useNavigate();
@@ -15,15 +15,11 @@ const Logout = () => {
     setLoading(true);
     try {
       await api.post("/api/logout");
-
       localStorage.removeItem("userInfo");
       Cookies.remove("jwt");
-
-      setAuthUser(null); // ⭐ IMPORTANT
+      setAuthUser(null);
       toast.success("Logout successful");
-
-      navigate("/login"); // optional but recommended
-
+      navigate("/login");
     } catch (error) {
       console.log("Logout error:", error);
     } finally {
@@ -31,11 +27,33 @@ const Logout = () => {
     }
   };
 
+  return { handleLogout, loading };
+};
+
+const Logout = ({ variant = "sidebar" }) => {
+  const { handleLogout, loading } = useLogout();
+
+  if (variant === "icon") {
+    return (
+      <button
+        type="button"
+        onClick={handleLogout}
+        disabled={loading}
+        className="p-2 rounded-full bg-slate-800/90 border border-slate-600 text-slate-300 hover:text-red-400"
+        title="Logout"
+        aria-label="Logout"
+      >
+        <RiLogoutBoxLine className="w-5 h-5" />
+      </button>
+    );
+  }
+
   return (
     <div className="w-[4%] min-w-[60px] bg-gradient-to-b from-slate-900 to-slate-950 text-white flex flex-col justify-end border-r border-slate-700">
       <div className="p-2">
-        <button 
-          onClick={handleLogout} 
+        <button
+          type="button"
+          onClick={handleLogout}
           disabled={loading}
           className="w-full flex items-center justify-center group"
           title="Logout"

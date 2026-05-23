@@ -25,7 +25,7 @@ const App = () => {
           path="/"
           element={
             authUser ? (
-              <div className="flex h-screen overflow-hidden bg-black">
+              <div className="flex h-[100dvh] overflow-hidden bg-black">
                 <ChatNotifications />
 
                 {/* ===== DESKTOP VIEW ===== */}
@@ -36,17 +36,18 @@ const App = () => {
                 </div>
 
                 {/* ===== MOBILE VIEW ===== */}
-                <div className="md:hidden relative w-full h-full">
+                <div className="md:hidden relative w-full h-[100dvh] flex flex-col overflow-hidden">
 
-                  {/* Logout Button (Mobile) */}
-                  <div className="fixed top-4 right-4 z-50">
-                    <Logout />
-                  </div>
+                  {!selectedConversation && (
+                    <div className="fixed top-3 right-3 z-50">
+                      <Logout variant="icon" />
+                    </div>
+                  )}
 
                   {/* Sidebar (Users List) */}
                   <div
-                    className={`fixed inset-0 z-30 bg-black ${
-                      selectedConversation && !showSidebar ? "hidden" : "block"
+                    className={`flex-1 min-h-0 z-30 bg-black ${
+                      selectedConversation && !showSidebar ? "hidden" : "flex flex-col"
                     }`}
                   >
                     <Left setShowSidebar={setShowSidebar} />
@@ -62,8 +63,8 @@ const App = () => {
 
                   {/* Chat Area */}
                   <div
-                    className={`fixed inset-0 z-10 ${
-                      selectedConversation ? "block" : "hidden"
+                    className={`flex-1 min-h-0 z-10 flex flex-col ${
+                      selectedConversation ? "flex" : "hidden"
                     }`}
                   >
                     <Right setShowSidebar={setShowSidebar} />

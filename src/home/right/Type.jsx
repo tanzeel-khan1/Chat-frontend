@@ -13,8 +13,6 @@ const Type = ({ targetId }) => {
     e.preventDefault();
 
     if (!message.trim()) return;
-
-    // 🚫 If blocked, don't send
     if (status.youBlocked || status.blockedBy) return;
 
     await sendMessages(message);
@@ -27,30 +25,36 @@ const Type = ({ targetId }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-full border-t border-slate-700 bg-slate-800/50 backdrop-blur-sm"
+      className="shrink-0 w-full border-t border-slate-700 bg-slate-900/95 backdrop-blur-sm pb-[max(0.5rem,env(safe-area-inset-bottom))]"
     >
-      <div className="flex items-center gap-2 md:gap-3 px-3 md:px-4 py-2 md:py-3">
+      <div className="flex items-end gap-2 px-3 py-2 md:px-4 md:py-3">
         <input
           type="text"
+          inputMode="text"
+          enterKeyHint="send"
+          autoComplete="off"
+          autoCorrect="on"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder={
             status.youBlocked
-              ? "You have blocked this user"
+              ? "You blocked this user"
               : status.blockedBy
-              ? "You are blocked by this user"
+              ? "You are blocked"
               : "Type a message..."
           }
-          disabled={isBlocked}
-          className="flex-1 px-3 md:px-4 py-2 text-sm md:text-base rounded-xl md:rounded-2xl bg-slate-700/50 text-white placeholder-slate-400 outline-none border border-slate-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+          disabled={isBlocked || blockLoading}
+          className="flex-1 min-w-0 px-4 py-3 text-base rounded-2xl bg-slate-700 text-white placeholder-slate-400 outline-none border border-slate-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/40 disabled:opacity-50"
+          style={{ fontSize: "16px" }}
         />
 
         <button
           type="submit"
           disabled={isLoading || !message.trim() || isBlocked}
-          className="flex items-center cursor-pointer justify-center w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 text-white hover:from-blue-600 hover:to-blue-700 disabled:opacity-50 transition-all duration-200 flex-shrink-0 shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-105"
+          className="shrink-0 flex items-center justify-center w-11 h-11 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 text-white disabled:opacity-50 shadow-lg shadow-blue-500/30"
+          aria-label="Send message"
         >
-          <IoIosSend className="text-xl md:text-2xl" />
+          <IoIosSend className="text-2xl" />
         </button>
       </div>
     </form>

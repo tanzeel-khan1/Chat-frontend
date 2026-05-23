@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import useBlockUser from "../hooks/BlockHook";
 
-const BlockButton = ({ targetUserId }) => {
+const BlockButton = ({ targetUserId, compact = false }) => {
   const { blockUser, unblockUser, status, fetchStatus, loading, error } = useBlockUser(targetUserId);
 
   const [isBlocked, setIsBlocked] = useState(false);
@@ -39,44 +39,50 @@ const BlockButton = ({ targetUserId }) => {
     if (res?.success) setIsBlocked(false);
   };
 
+  const btnClass = compact
+    ? "px-2 py-1 text-xs rounded-md whitespace-nowrap"
+    : "px-3 py-1 text-sm rounded";
+
   if (checking) {
     return (
-      <button disabled className="px-3 py-1 rounded bg-gray-500 text-white">
-        Checking...
+      <button
+        type="button"
+        disabled
+        className={`${btnClass} bg-gray-500 text-white`}
+      >
+        ...
       </button>
     );
   }
 
   return (
-    <div className="flex items-center space-x-2 md:mr-0 mr-20">
+    <div className="flex flex-col items-end gap-0.5">
       {isBlocked ? (
         <button
+          type="button"
           onClick={handleUnblock}
           disabled={loading}
-          className="px-3 py-1 rounded cursor-pointer bg-red-600 text-white hover:bg-red-700 transition"
+          className={`${btnClass} cursor-pointer bg-red-600 text-white hover:bg-red-700 transition`}
         >
-          {loading ? "Processing..." : "Unblock"}
+          {loading ? "..." : "Unblock"}
         </button>
       ) : (
         <button
+          type="button"
           onClick={handleBlock}
           disabled={loading}
-          className="px-3 py-1 rounded cursor-pointer bg-purple-600 text-white hover:bg-purple-700 transition"
+          className={`${btnClass} cursor-pointer bg-purple-600 text-white hover:bg-purple-700 transition`}
         >
-          {loading ? "Processing..." : "Block"}
+          {loading ? "..." : "Block"}
         </button>
       )}
 
-      {status.blockedBy && (
-        <span className="text-sm text-red-500">
-          You are blocked by this user
-        </span>
+      {status.blockedBy && !compact && (
+        <span className="text-xs text-red-400">Blocked by user</span>
       )}
 
-      {error && (
-        <span className="text-sm text-red-500">
-          {error}
-        </span>
+      {error && !compact && (
+        <span className="text-xs text-red-400">{error}</span>
       )}
     </div>
   );
