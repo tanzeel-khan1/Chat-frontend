@@ -10,6 +10,7 @@ import Login from "./components/Login";
 
 import { useAuth } from "./context/AuthProvider";
 import useConversation from "./stateman/useConversation";
+import ChatNotifications from "./components/ChatNotifications";
 
 const App = () => {
   const { authUser } = useAuth();
@@ -25,6 +26,7 @@ const App = () => {
           element={
             authUser ? (
               <div className="flex h-screen overflow-hidden bg-black">
+                <ChatNotifications />
 
                 {/* ===== DESKTOP VIEW ===== */}
                 <div className="hidden md:flex w-full h-full">
@@ -87,7 +89,7 @@ const App = () => {
         />
       </Routes>
 
-      <Toaster />
+      <Toaster position="top-right" />
     </>
   );
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import Search from "./Search";
 import User from "./User";
-import { X } from "lucide-react";
+import NotificationBanner from "../../components/NotificationBanner";
 
 const Left = ({ setShowSidebar }) => {
   return (
@@ -15,6 +15,8 @@ const Left = ({ setShowSidebar }) => {
       {/* Desktop Title */}
       <h1 className="hidden md:block font-bold text-2xl md:text-3xl p-2 px-4 md:px-11 mt-2 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Chat's</h1>
       
+      <NotificationBanner />
+
       <div className="flex-1 overflow-hidden flex flex-col">
         <Search />
         <hr className="border-slate-700" />
