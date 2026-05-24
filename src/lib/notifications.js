@@ -1,8 +1,18 @@
+import { subscribeToPushNotifications, isPushSupported } from "./pushNotifications";
+
 export async function requestNotificationPermission() {
   if (!("Notification" in window)) return false;
-  if (Notification.permission === "granted") return true;
+  if (Notification.permission === "granted") {
+    if (isPushSupported()) {
+      await subscribeToPushNotifications();
+    }
+    return true;
+  }
   if (Notification.permission === "denied") return false;
   const result = await Notification.requestPermission();
+  if (result === "granted" && isPushSupported()) {
+    await subscribeToPushNotifications();
+  }
   return result === "granted";
 }
 

@@ -11,6 +11,7 @@ Real-time chat application built with React, Vite, and Tailwind CSS. Connects to
 - One-to-one messaging
 - Real-time messages (Socket.IO)
 - Notifications: toast, browser alerts, unread badges, tab title count
+- **Background push**: alerts when app/tab is closed (Web Push + Service Worker)
 - Online / offline status
 - Block and unblock users
 - Delete messages
@@ -69,14 +70,18 @@ npm install
 Create `.env` in the frontend folder:
 
 ```env
-VITE_API_URL=http://localhost:5001
+VITE_API_URL=https://my-app1111.bonto.run
+VITE_FRONTEND_URL=https://chat-steel-eta.vercel.app
+VITE_VAPID_PUBLIC_KEY=your_vapid_public_key
 ```
 
 | Variable | Description |
 |----------|-------------|
-| VITE_API_URL | Backend URL (no trailing slash). Used for API and Socket.IO. |
+| VITE_API_URL | Backend URL (no trailing slash). API + Socket.IO. |
+| VITE_FRONTEND_URL | Production frontend (Vercel). |
+| VITE_VAPID_PUBLIC_KEY | Same as backend `VAPID_PUBLIC_KEY`. |
 
-If omitted, defaults to production URL in `src/lib/api.js`.
+Defaults are in `src/config/urls.js` (production URLs).
 
 ### 3. Start dev server
 
@@ -103,15 +108,21 @@ Note: `vite.config.js` proxies `/api` to port 5002 by default. Set `VITE_API_URL
 2. Set environment variable:
 
 ```env
-VITE_API_URL=https://your-backend-url.com
+VITE_API_URL=https://my-app1111.bonto.run
+VITE_FRONTEND_URL=https://chat-steel-eta.vercel.app
 ```
 
 3. Deploy.
-4. Add your Vercel URL to backend CORS and FRONTEND_URL.
+4. Backend `FRONTEND_URL` must match your Vercel URL.
 
-## Browser Notifications
+## Browser & Background Notifications
 
-The app may request notification permission on first visit. Users can tap Enable in the sidebar. HTTPS required in production.
+1. Backend: run `node scripts/generate-vapid-keys.js` in `chat-backend`, add keys to `.env`, run `npm install web-push`.
+2. Frontend: set `VITE_VAPID_PUBLIC_KEY` in `.env`.
+3. User taps **Enable** in the sidebar (grants permission + registers push subscription).
+4. When the receiver is **offline** (no Socket.IO connection), the server sends a Web Push — works even if the browser/app is closed.
+
+HTTPS is required for push notifications. Local dev UI uses localhost; API/socket use production backend by default.
 
 ## Related
 

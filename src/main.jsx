@@ -4,6 +4,11 @@ import App from "./App.jsx";
 import { AuthProvider } from "./context/AuthProvider.jsx";
 import { BrowserRouter } from "react-router-dom";
 import { SocketProvider } from "./context/SocketContext.jsx";
+import { registerServiceWorker } from "./lib/pushNotifications.js";
+
+if ("serviceWorker" in navigator) {
+  registerServiceWorker();
+}
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>

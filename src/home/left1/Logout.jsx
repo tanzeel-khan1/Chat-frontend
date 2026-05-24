@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import { useAuth } from "../../context/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import { unsubscribeFromPushNotifications } from "../../lib/pushNotifications";
 
 export const useLogout = () => {
   const [loading, setLoading] = useState(false);
@@ -14,6 +15,7 @@ export const useLogout = () => {
   const handleLogout = async () => {
     setLoading(true);
     try {
+      await unsubscribeFromPushNotifications();
       await api.post("/api/logout");
       localStorage.removeItem("userInfo");
       Cookies.remove("jwt");

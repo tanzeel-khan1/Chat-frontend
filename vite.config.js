@@ -12,8 +12,9 @@ export default defineConfig({
     port: 4001,
     proxy: {
       '/api': {
-        target: 'http://localhost:5002',
+        target: 'https://my-app1111.bonto.run',
         changeOrigin: true,
+        secure: true,
       },
     },
   },
